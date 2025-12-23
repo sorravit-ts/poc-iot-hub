@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>IoT Telemetry Monitor</title>
+</head>
+<body>
+    <h1>Realtime IoT Telemetry</h1>
+    <ul id="messages"></ul>
+    <script>
+        const ws = new WebSocket("ws://localhost:8000/ws");
+        ws.onmessage = function(event) {
+            const msgList = document.getElementById("messages");
+            const li = document.createElement("li");
+            li.textContent = event.data;
+            msgList.appendChild(li);
+        };
+    </script>
+</body>
+</html>
