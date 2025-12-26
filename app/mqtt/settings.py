@@ -13,12 +13,11 @@ class Settings(BaseSettings):
     # MQTT
     MQTT_PORT: int = 8883
 
-    # Cert
+    # Cert // Optional
     CA_CERT_FILENAME: str = "DigiCert Global Root G2.crt.pem"
 
     @property
     def ca_cert_path(self) -> Path:
-        # app/
         base_dir = Path(__file__).resolve().parents[1]
         return base_dir / "certs" / self.CA_CERT_FILENAME
 

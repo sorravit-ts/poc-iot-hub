@@ -55,7 +55,8 @@ class IoTHubMQTTClient:
 
     def publish(self, payload: str, qos: int = 0):
         topic = f"devices/{settings.DEVICE_ID}/messages/events/"
-        return self.client.publish(topic, payload, qos=qos)
+        return self.client.publish(
+            topic + "?type=alert&level=critical", payload, qos=qos)
 
     # ---------- Callbacks ----------
 
