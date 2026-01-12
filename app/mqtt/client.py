@@ -1,3 +1,4 @@
+import json
 import ssl
 import threading
 from paho.mqtt import client as mqtt
@@ -119,6 +120,19 @@ class IoTHubMQTTClient:
         """
         ถูกเรียกเมื่อได้รับ C2D message จาก IoT Hub
         """
+        
+        # แปลง payload จาก bytes → string
+        payload = msg.payload.decode()
+        
+        # แปลง JSON string → Python list
+        data = json.loads(payload)
+
+        # ตัวอย่างการเข้าถึงข้อมูลใน payload แยกไปทำ function ต่างๆ ตาม type ที่ backend ส่งมา
+        for item in data:
+            print("type:", item.get("type"))
+            print("action:", item.get("action"))
+            print("-" * 20)
+            
         print(f"📩 C2D {msg.topic}: {msg.payload.decode()}")
 
     def on_publish(self, client, userdata, mid):
